@@ -121,7 +121,6 @@ Directories</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>"" "![ROS 2: kilted](https://img.shields.io/badge/ROS%202-kilted-blue)" "" "![ROS 2: rolling](https://img.shields.io/badge/ROS%202-rolling-blue)"</p>
 <h1><a class="anchor" id="autotoc_md38"></a>
 Description</h1>
 <p>Simple path-following controller that uses PID controllers and a look-ahead reference pose to follow a planned path. It produces velocity commands (<code>cmd_vel</code>) based on the reference pose sampled at a look-ahead distance and limits linear/angular speeds and accelerations.</p>
@@ -137,6 +136,10 @@ Supported ROS 2 Distributions</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Distribution   </th><th class="markdownTableHeadRight">Status    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">humble   </td><td class="markdownTableBodyRight"><img src="https://img.shields.io/badge/humble-supported-brightgreen" alt="kilted" class="inline"/>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">jazzy   </td><td class="markdownTableBodyRight"><img src="https://img.shields.io/badge/jazzy-supported-brightgreen" alt="kilted" class="inline"/>    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">kilted   </td><td class="markdownTableBodyRight"><img src="https://img.shields.io/badge/kilted-supported-brightgreen" alt="kilted" class="inline"/>    </td></tr>
 <tr class="markdownTableRowEven">
@@ -154,6 +157,9 @@ Plugin (pluginlib)</h1>
 <h1><a class="anchor" id="autotoc_md42"></a>
 Parameters</h1>
 <p>All parameters are declared under the plugin namespace, i.e., <code>/&lt;node_fqn&gt;/easynav_simple_controller/SimpleController/...</code>.</p>
+<blockquote class="doxtable">
+<p>This plugin derives from <a href="https://github.com/EasyNavigation/EasyNavigation/tree/rolling/easynav_core#easynavcontrollermethodbase"><code>easynav::ControllerMethodBase</code></a>. \ See that section for shared collision-checking parameters and debug markers common to all controllers. </p>
+</blockquote>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Name   </th><th class="markdownTableHeadNone">Type   </th><th class="markdownTableHeadRight">Default   </th><th class="markdownTableHeadNone">Description    </th></tr>
@@ -170,7 +176,21 @@ Parameters</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>tolerance_dist</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.05</code>   </td><td class="markdownTableBodyNone">Distance threshold to switch to pure orientation tracking (m).    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>k_rot</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.5</code>   </td><td class="markdownTableBodyNone">Gain used in rotation controller when close to the goal.   </td></tr>
+<td class="markdownTableBodyNone"><code>final_goal_angle_tolerance</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.1</code>   </td><td class="markdownTableBodyNone">Angular tolerance (rad) used to decide final-goal arrival.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>k_rot</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.5</code>   </td><td class="markdownTableBodyNone">Gain used to reduce linear speed based on angular velocity (higher: stronger reduction while turning).    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>linear_kp</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.95</code>   </td><td class="markdownTableBodyNone">Proportional gain for the linear PID controller.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>linear_ki</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.03</code>   </td><td class="markdownTableBodyNone">Integral gain for the linear PID controller.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>linear_kd</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.08</code>   </td><td class="markdownTableBodyNone">Derivative gain for the linear PID controller.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>angular_kp</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>1.5</code>   </td><td class="markdownTableBodyNone">Proportional gain for the angular PID controller.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>angular_ki</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.03</code>   </td><td class="markdownTableBodyNone">Integral gain for the angular PID controller.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>angular_kd</code>   </td><td class="markdownTableBodyNone"><code>double</code>   </td><td class="markdownTableBodyRight"><code>0.08</code>   </td><td class="markdownTableBodyNone">Derivative gain for the angular PID controller.   </td></tr>
 </table>
 <h1><a class="anchor" id="autotoc_md43"></a>
 Interfaces (NavState, Topics and Services)</h1>
